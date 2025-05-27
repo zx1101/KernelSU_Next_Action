@@ -90,14 +90,14 @@ jobs:
         fi
         echo "UPLOADNAME=-KernelSU_$KSU_VERSION" >> $GITHUB_ENV
 
-#    - name: Setup SuSFS
-#      if: env.ENABLE_SUSFS == 'true'
-#      run: |
-#        cd $GITHUB_WORKSPACE/kernel_workspace
-#        git clone https://github.com/JackA1ltman/susfs_4.9_lastest_sussu.git -b main susfs4ksu --depth=1
-#        cd $GITHUB_WORKSPACE/kernel_workspace/susfs4ksu
-#        cp ./kernel_patches/fs/* $GITHUB_WORKSPACE/kernel_workspace/android-kernel/fs/
-#        cp ./kernel_patches/include/linux/* $GITHUB_WORKSPACE/kernel_workspace/android-kernel/include/linux/
+    - name: Setup SuSFS
+      if: env.ENABLE_SUSFS == 'true'
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        git clone https://gitlab.com/simonpunk/susfs4ksu.git -b ${{ env.SUSFS_SOURCE_BRANCH }} susfs4ksu --depth=1
+        cd $GITHUB_WORKSPACE/kernel_workspace/susfs4ksu
+        cp ./kernel_patches/fs/* $GITHUB_WORKSPACE/kernel_workspace/android-kernel/fs/
+        cp ./kernel_patches/include/linux/* $GITHUB_WORKSPACE/kernel_workspace/android-kernel/include/linux/
 #        if [ ${{env.APPLY_SUSFS_PATCH}} ]; then
 #            cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
 #            if [ ${{env.USE_LOCAL_SUSFS_PATCH}} ]; then
