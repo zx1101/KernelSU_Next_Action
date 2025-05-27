@@ -27,7 +27,7 @@ jobs:
         echo "ADD_OVERLAYFS_CONFIG=$(cat config.env | grep "ADD_OVERLAYFS_CONFIG" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "NEED_DTBO=$(cat config.env | grep "NEED_DTBO" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "MAKE_BOOT_IMAGE=$(cat config.env | grep "MAKE_BOOT_IMAGE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
-        echo "SOURCE_BOOT_IMAGE=$(cat config.env | grep "SOURCE_BOOT_IMAGE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+        echo "_BOOT_IMAGE=$(cat config.env | grep "_BOOT_IMAGE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "DISABLE_CC_WERROR=$(cat config.env | grep "DISABLE_CC_WERROR" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "APPLY_KSU_PATCH=$(cat config.env | grep "APPLY_KSU_PATCH" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "ENABLE_SUSFS=$(cat config.env | grep "ENABLE_SUSFS" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
@@ -93,7 +93,7 @@ jobs:
       if: env.ENABLE_SUSFS == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone https://github.com/JackA1ltman/susfs_4.9_lastest_sussu.git -b ${{ env.SUSFS_SOURCE_BRANCH }} susfs4ksu --depth=1
+        git clone https://github.com/JackA1ltman/susfs_4.9_lastest_sussu.git -b main susfs4ksu --depth=1
         cd $GITHUB_WORKSPACE/kernel_workspace/susfs4ksu
         cp ./kernel_patches/fs/* $GITHUB_WORKSPACE/kernel_workspace/android-kernel/fs/
         cp ./kernel_patches/include/linux/* $GITHUB_WORKSPACE/kernel_workspace/android-kernel/include/linux/
